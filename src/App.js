@@ -1,23 +1,31 @@
-import Header from "./components/header";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import  Carouselt  from './components/carousel'
 import Product from "./components/product";
+import Button from "./components/EditeButton";
 import {Row ,Container} from 'react-bootstrap'
+import Faker from'faker'
 
 function App() {
   return (
+    
     <div className="App">
-       <Header /> 
+    
        <Carouselt />
-       <div >
-       <Product />
-       <Product />
-       </div>
-       <Container>
+       <Container className='container'>
         <Row>
-            <Product />
-            <Product />
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
+       
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} />
         </Row>
        </Container>
+       <Button />
     </div>
   );
 }
