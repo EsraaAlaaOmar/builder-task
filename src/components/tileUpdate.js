@@ -1,12 +1,18 @@
-import React from "react";
+import React,{useState} from "react";
 
 const TitleUpdate=()=>{
+    const [formData, setFormData] = useState({
+        name: '',
+     
+    })    
+    const onSubmit=e=>setFormData({...formData, [e.target.name]: e.target.value})
 return(
     <>
+    
      <div className='updatedItem'>
      <label>Title</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text' name='tile' value={formData.name} />
           <br />
           <label>Logo</label>
           <br />

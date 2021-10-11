@@ -2,6 +2,7 @@ import React from "react";
 import Faker from 'faker'
 import { Card } from "react-bootstrap";
 import {Button} from "react-bootstrap";
+import { Link } from "react-router-dom";
 const Product =({img})=>{
  return(
      <>
@@ -13,7 +14,7 @@ const Product =({img})=>{
             Some quick example text to build on the card title and make up the bulk of
             the card's content.
             </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Link to='/blogs'><Button variant="primary">Go somewhere</Button></Link>
         </Card.Body>
         </Card>
      </>

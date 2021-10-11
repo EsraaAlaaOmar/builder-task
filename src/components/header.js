@@ -2,8 +2,8 @@ import React from "react";
 import faker from 'faker'
  const Header= () =>{
     return( <div className='header'>
-        <img src= 'images/logo.png' />
-         Es Builder                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+        <img  id='icon' src= 'images/logo.png' />
+         <span id='headerTitle'>Es Builder </span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
      </div>)
  }
  export default Header
