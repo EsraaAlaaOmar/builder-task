@@ -1,48 +1,130 @@
 import React from "react";
 import { Carousel } from  'react-bootstrap';
-import faker from 'faker'
+//import faker from 'faker'
+import CarouselItem from './CarouselItem'
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-const Carouselt = () => {
+const Carouselt = ({carousels,fImg,secImg,thrImg}) => {
+const items =[
+  {img:fImg,
+   label: carousels.fLabel,
+   labelDetails:carousels.fLabelDetails
+  },
+  {
+    img:secImg,
+    label: carousels.secLabel,
+    labelDetails:carousels.secLabelDetails
+  },
+  {
+  img:thrImg,
+   label: carousels.thrLabel,
+   labelDetails:carousels.thrLabelDetails
+  }
+
+]
+
+const renderedItems= items.map((item)=>{
+  return(
+  <CarouselItem img={item.img} label={item.label} labelDetails={item.labelDetails}/>
+)})
+
+return(
+  <>
+   <OwlCarousel className='owl-theme' items='3' autoplay dots loop margin={10} nav>
+   {renderedItems}
+   </OwlCarousel>
+  
+ {/*<Carousel className='carousel'>
+  {renderedItems}
+ <CarouselItem img={carousels.fImg} label={carousels.fLabel} labelDetails={carousels.fLabelDetails}/>
+<CarouselItem  img={carousels.secImg} label={carousels.secLabel} labelDetails={carousels.secLabelDetails}/>
+<CarouselItem  img={carousels.thrImg} label={carousels.thrLabel} labelDetails={carousels.thrLabelDetails} />  
+  
+</Carousel> */}
+
+</>
+)
+}
+
+export default Carouselt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const Carouselt = ({carousels}) => {
 return(
     <>
  <Carousel className='carousel'>
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src={faker.image.business()}
+      src={carousels.fImg}
       alt="First slide"
     />
     <Carousel.Caption>
-      <h3>First slide label</h3>
-      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      <h3>{carousels.fLabel}</h3>
+      <p>{carousels.fLabelDetails}</p>
     </Carousel.Caption>
   </Carousel.Item>
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src={faker.image.animals()}
+      src={carousels.secImg}
       alt="Second slide"
     />
 
     <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <h3>{carousels.secLabel}</h3>
+      <p>{carousels.secLabelDetails}</p>
     </Carousel.Caption>
   </Carousel.Item>
   <Carousel.Item>
     <img
       className="d-block w-100"
-      src={faker.image.sports()}
+      src={carousels.thrImg}
       alt="Third slide"
     />
 
     <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+    <h3>{carousels.thrLabel}</h3>
+      <p>{carousels.thrLabelDetails}</p>
     </Carousel.Caption>
   </Carousel.Item>
 </Carousel>
+
     </>
 )
 }
 export default Carouselt
+*/

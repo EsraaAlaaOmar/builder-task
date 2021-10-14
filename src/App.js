@@ -8,14 +8,59 @@ import Faker from'faker'
 
 function App() {
   const[value,setValue]=useState('')
+  const[fImg,setFImg]=useState(Faker.image.image())
+  const[secImg,setSecImg]=useState(Faker.image.image())
+  const[thrImg,setThrImg]=useState(Faker.image.image())
+  const[newImg,setNewImg]=useState('')
+  const [carousels, setCarousels] = useState({
+    fLabel:'First slide label',
+    fLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+   
+    secLabel:'Second slide label',
+    secLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+   
+    thrLabel:'Third slide label',
+    thrLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    
+})  
+
   function handleChange(newValue) {
     setValue(newValue);
   }
+  function carouselChange(target) {
+  
+    setCarousels({...carousels, [target.name]: target.value})
+ 
+    
+  }
+  
+  
+  function carouselFImage(firsImage) {
+     setFImg(firsImage)
+      console.log(`from app${fImg}`)
+    
+  }
+   
+  function carouselSecImage(secondImage) {
+   setSecImg(secondImage)
+  
+}
+ 
+function carouselthrImage(thirdImage) {
+setThrImg(thirdImage)
+
+}
+function carouselnewImage(thirdImage) {
+   setNewImg( thirdImage)
+
+}
+
+
 
   useEffect(() => {
     if(value != '')
     { document.getElementById('headerTitle').innerHTML=value
-      document.getElementById('headerTitle').innerHTML=value
+      document.getElementById('title').innerHTML=value
   }
   }, [value])
   
@@ -23,23 +68,26 @@ function App() {
     
     <div className="App">
     
-       <Carouselt />
-       <div>hi this is {value}</div>
+       <Carouselt carousels={carousels} fImg={fImg} secImg={secImg} thrImg={thrImg} />
+       <div>hi this is  </div>
        <Container className='container'>
         <Row>
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()} />
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
        
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
-            <Product img={Faker.image.image()} />
+            <Product img={Faker.image.image()} product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
+            <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
         </Row>
        </Container>
        <Button />
-       <Update value={value} onChange={handleChange}/>
+       <Update value={value} onChange={handleChange} car={carousels} carouselChange={carouselChange} carouselFImage={carouselFImage}
+       carouselSecImage={carouselSecImage} carouselthrImage={carouselthrImage} carouselnewImage={carouselnewImage}
+       
+       />
     </div>
   );
 }

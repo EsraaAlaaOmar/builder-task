@@ -22,8 +22,11 @@
     }
 }
 .carousel{
+    margin-top:65px ;
     img{
-    max-height:800px;
+    max-height:600px;
+    min-height: 40%;
+    width:100%
     }
 }
 .product{
@@ -54,9 +57,66 @@
 }
 .update{
 margin-top: 65px;
+margin-bottom: 200px;
 text-align: center;
+
+.inputDiv{
+    position: relative;
+    width: 70%;
+    margin: auto;
 input{
    
-    width: 70%;
+   width: 100%;
+    margin-bottom: 10px;
 }
+label{
+    position: absolute;
+    left: 0px;
+}
+
+}
+.shapeandcolor{
+    position: absolute;
+    left: 0;
+    height: 30px;
+   // margin-left: -17px;
+}
+
+}
+.productDetails{
+    margin-top:65px ;
+}
+.box{
+    border: 5px solid rgb(159, 160, 150);
+    padding: 20px;
+
+    .row{
+        .inputDiv{
+            margin-left: 20%;
+            margin-top: 50px;
+        }
+    }
+    button{
+        color: #fff;
+        margin: auto;
+        height: 40px;
+        background-color: #000;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+        margin-top: -20px;
+       
+    
+    }
+    
+    
+}
+.owl-theme{
+
+    .text{
+        margin-top: -100px;
+        z-index: 100;
+        color: #fff;
+        text-align: center;
+    }
 }

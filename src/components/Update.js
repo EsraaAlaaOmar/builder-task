@@ -1,32 +1,38 @@
 import React,{useState,useEffect} from "react";
 import axios from 'axios'
-import TitleUpdate from "./tileUpdate";
-import { Image } from "cloudinary-react";
+import Faker from'faker'
 const Update =(props)=>{
     const [ImageSelector, setImageSelector] = useState('')
-    // carousels states
-    const [carousels, setCarousels] = useState({
-        fLabel:'First slide label',
-        fLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        fImg:'',
-        secLabel:'Second slide label',
-        secLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        secImg:'',
-        thrLabel:'Third slide label',
-        thrLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        thrImg:'',
+    const [shape, setShape] = useState('')
+    const [color, setColor] = useState('')
+    const [background, setBackground] = useState('')
 
-    })  
+    const [fImCar, setFImCar] = useState('')
+    const [secImCar, setSecImCar] = useState('')
+    const [thrImCar, setThrImCar] = useState('')
+    const [newImCar, setNewImCar] = useState('')
+    const[imageCarSelector,setImageCarSelector]= useState({
+        fIm:'',
+        secIm:'',
+        thrIm:''
+    })
+    const { fIm, secIm,thrIm}=imageCarSelector
+    
+    
+    
+    // carousels states
+    
     const [imageUrl, setImageImageUrl] = useState('')
     const [imageAlt, setImageimageAlt] = useState('')
     
-
+    //change title &logo
     const onChange=e=>{
-        //setFormData({...formData, [e.target.name]: e.target.value})
+        
         props.onChange(e.target.value);
+        
     }
-    const uploadImage=(e)=>{
-        e.preventDefault()
+    const uploadImage=()=>{
+        
         const formData = new FormData()
         formData.append('file',ImageSelector)
         formData.append('upload_preset','ozqur3ms')
@@ -39,12 +45,160 @@ const Update =(props)=>{
         })
         
     }
+
+    const logoShape=(e)=>{
+      setShape(e.target.value)
+     
+    }
+
+    const titleColor=(e)=>{
+        
+        setColor(e.target.value)
+    }
+
+    const backgroundColor=(e)=>{
+        
+        setBackground(e.target.value)
+    }
+    //change carousels
+
+     const carouselChange=(e)=>{
+        props.carouselChange(e.target)
+     }
+     //changeImages
+
+    const uploadFImageCar = ()=>{
+        
+        const formData = new FormData()
+        formData.append('file',fIm)
+        formData.append('upload_preset','ozqur3ms')
+        axios.post('https://api.cloudinary.com/v1_1/djrm6ygpv/image/upload',formData).then((res)=>{
+            console.log(res)
+            //setImageCar(res.data.secure_url)
+        
+            setFImCar(res.data.secure_url)
+            console.log(`this is ${fImCar}`)
+           
+
+
+          
+        })
+        
+    }
+    const uploadSecImageCar = ()=>{
+        
+        const formData = new FormData()
+        formData.append('file',secIm)
+        formData.append('upload_preset','ozqur3ms')
+        axios.post('https://api.cloudinary.com/v1_1/djrm6ygpv/image/upload',formData).then((res)=>{
+            console.log(res)
+            setSecImCar(res.data.secure_url)
+        
+            
+
+
+          
+        })
+        
+    }
+    const uploadThImageCar = ()=>{
+        
+        const formData = new FormData()
+        formData.append('file',thrIm)
+        formData.append('upload_preset','ozqur3ms')
+        axios.post('https://api.cloudinary.com/v1_1/djrm6ygpv/image/upload',formData).then((res)=>{
+            console.log(res)
+            setThrImCar(res.data.secure_url)
+        
+           
+
+
+          
+        })
+        
+    }
+    const uploadNewImageCar = ()=>{
+        
+        const formData = new FormData()
+        formData.append('file',fIm)
+        formData.append('upload_preset','ozqur3ms')
+        axios.post('https://api.cloudinary.com/v1_1/djrm6ygpv/image/upload',formData).then((res)=>{
+            console.log(res)
+            setNewImCar(res.data.secure_url)
+        
+          
+
+
+          
+        })
+        
+    }
+
+  
+
+    
+     useEffect(() => { document.getElementById("headerTitle").style.color = color;
+     document.getElementById("pageIcon").style.borderRadius=shape
+     document.getElementById("header").style.backgroundColor=background
+     document.getElementById("icon").style.borderRadius=shape},[color,shape,background])
     useEffect(() => {
-        if(imageUrl!=''){
+       
+        if(imageUrl!==''){
         document.getElementById("pageIcon").setAttribute("href", imageUrl)
         document.getElementById("icon").setAttribute("src", imageUrl)  
+       
+
+       
+      
         }
+
+
       }, [imageUrl])
+      useEffect(() => {
+      
+        
+        uploadFImageCar()
+       
+      }, [fIm])
+      useEffect(() => {
+      
+        props.carouselFImage(fImCar)
+        
+       
+      }, [fImCar])
+//sec 
+      useEffect(() => {
+      
+        
+        uploadSecImageCar()
+       
+      }, [secIm])
+      useEffect(() => {
+      
+        props.carouselSecImage(secImCar)
+        
+       
+      }, [secImCar])
+      useEffect(() => {
+      
+        props.carouselthrImage(thrImCar)
+        
+       
+      }, [thrImCar])
+
+      //third
+      useEffect(() => {
+      
+        
+        uploadThImageCar()
+       
+      }, [thrIm])
+      useEffect(() => {
+      
+        props.carouselFImage(newImCar)
+        
+       
+      }, [newImCar])
     
     const onSubmit= e=>{
         e.preventDefault()
@@ -55,97 +209,142 @@ const Update =(props)=>{
   return(
       <>
       {/* start update title &logo */}
-      <form className='update' onSubmit={e=>onSubmit(e)} >
+      <form className='update container' onSubmit={e=>onSubmit(e)} >
           
-      <div className='updatedItem'>
-     <label>Title</label>
+     <div className='box'>
+         <h5>Update Title and Logo</h5>
+        <div className='inputDiv'>
+         <label>Title</label>
           <br />
           <input type='text' name='title' value={props.value} onChange={e=>onChange(e)} />
           <br />
-          <label>Logo</label>
+          </div>
+         <div className='inputDiv'>
+          <label>Logo Image</label>
           <br />
          
           
           <input type="file"  onChange={e=>{setImageSelector(e.target.files[0])}} />
           <br />
           <button onClick={uploadImage}>Upload photo</button>
+          </div>
           
-          
+    
+         <div className='inputDiv'> 
+          <label>Logo shape</label>
           <br />
-          
-          <label>Title Style</label>
-          <br />
-          <select name="cars" id="cars">
-                <option value="square">square</option>
-                <option value="flexible width">flexible width</option>
-                <option value="rounded">rounded</option>
+          <select  className="shapeandcolor" onChange={(e)=>logoShape(e)}>
+                <option value="0px">square</option>
+                <option value="50%">circle</option>
+                <option value="25px">rounded</option>
                 
          </select>
-         <br />
-          <label>background Color</label>
+         </div>
+         <div className='row'>
+         <div className='inputDiv col'> 
+          <label>Title Color</label>
           <br />
-          <input type='color' name='tile' />
+          
+          <input className="shapeandcolor "style={{width: '85px'}} type='color'  onChange={(e)=>titleColor(e)} />
           <br />
+          
+         </div> 
+         <div className='inputDiv col'> 
+          <label>Background Color</label>
+          <br />
+          
+          <input className="shapeandcolor "style={{width: '85px'}} type='color'  onChange={(e)=>backgroundColor(e)} />
+          <br />
+          
+         </div> 
+     </div> 
     </div>    
            {/* End update title &logo */}
            {/* start carousels */}
           <h1>carousel</h1>
           {/* first carousel*/}
+         <div className='box'>
           <h3>First carousel</h3>
+          <div className='inputDiv'>
           <label>First slide label</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text' name='fLabel' onChange={e=>carouselChange(e)}/>
+          </div>
+          <div className='inputDiv'>
+          <label>First slide label details </label>
           <br />
-          <label>First slide label details</label>
-          <br />
-          <input type='text' name='tile' />
-          <br />
-          <label>carousel</label>
-          <br />
-          <input type="file" name='tile' />
+          <input type='text' name='fLabelDetails'onChange={e=>carouselChange(e)} />
+          </div>
+         
+           
+            <br />
+            <input type="file"  onChange={e=>{setImageCarSelector( {...imageCarSelector,fIm:(e.target.files[0])});}} />
+        
+          
+          <button name='fImCar' onClick={uploadFImageCar}>Upload photo</button>
+         </div> 
+          
           {/* Second carousel*/}
+          <div className='box'>
           <h3>Second carousel</h3>
+          <div className='inputDiv'>
           <label>Second slide label</label>
           <br />
-          <input type='text' name='tile' />
-          <br />
+          <input type='text' name='secLabel' onChange={e=>carouselChange(e)} />
+          </div>
+          
+          <div className='inputDiv'>
           <label>Second slide label details</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text' name='secLabelDetails' onChange={e=>carouselChange(e)}/>
+          </div>
+          
+          
           <br />
-          <label>carousel</label>
-          <br />
-          <input type="file" name='tile' />
+          <input type="file"   onChange={e=>{setImageCarSelector( {...imageCarSelector,secIm:(e.target.files[0])});}} />
+          <button name='secImCar' onClick={uploadSecImageCar}>Upload photo</button>
+          </div>
           {/* Third carousel*/}
+          <div className='box'>
           <h3>Third carousel</h3>
+          <div className='inputDiv'>
           <label>Third slide label</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text' name='thrLabel' onChange={e=>carouselChange(e)}/>
+          </div>
           <br />
+          <div className='inputDiv'>
           <label>Third slide label details</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text' name='thrLabelDetails'onChange={e=>carouselChange(e)} />
           <br />
-          <label>carousel</label>
-          <br />
-          <input type="file" name='tile' />
-          <br />
+          </div>
          
+          <br />
+          <input type="file" onChange={e=>{setImageCarSelector( {...imageCarSelector,thrIm:(e.target.files[0])});}} />
+          <button name='thrImCar' onClick={uploadThImageCar}>Upload photo</button>
+          <br />
+         </div>
           {/* New carousel*/}
+          <div className='box'>
           <h3>New carousel</h3>
+          <div className='inputDiv'>
           <label>New slide label</label>
           <br />
           <input type='text' name='tile' />
           <br />
+          </div>
+          <div className='inputDiv'>
           <label>New slide label details</label>
           <br />
           <input type='text' name='tile' />
+         </div>
           <br />
-          <label>carousel</label>
+          <input type="file"  name='tile' />
+          <button name='thrImCar' onClick={(e)=>{uploadThImageCar(thrIm)}}>Upload photo</button>
           <br />
-          <input type="file" name='tile' />
-          <br />
-          
+
+          </div>
           {/* end carousels */}
 
       </form>
