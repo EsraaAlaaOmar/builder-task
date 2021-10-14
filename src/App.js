@@ -7,6 +7,7 @@ import {Row ,Container} from 'react-bootstrap'
 import Faker from'faker'
 
 function App() {
+  const[show,setShow]=useState(false)
   const[value,setValue]=useState('')
   const[fImg,setFImg]=useState(Faker.image.image())
   const[secImg,setSecImg]=useState(Faker.image.image())
@@ -21,6 +22,8 @@ function App() {
    
     thrLabel:'Third slide label',
     thrLabelDetails:'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    newLabel:'',
+    newLabelDetails:''
     
 })  
 
@@ -50,12 +53,15 @@ function carouselthrImage(thirdImage) {
 setThrImg(thirdImage)
 
 }
-function carouselnewImage(thirdImage) {
-   setNewImg( thirdImage)
+function carouselnewImage(newImage) {
+   setNewImg(newImage)
 
 }
 
+function showUpdate(sh) {
+  setShow(sh)
 
+}
 
   useEffect(() => {
     if(value != '')
@@ -68,7 +74,7 @@ function carouselnewImage(thirdImage) {
     
     <div className="App">
     
-       <Carouselt carousels={carousels} fImg={fImg} secImg={secImg} thrImg={thrImg} />
+       <Carouselt carousels={carousels} fImg={fImg} secImg={secImg} thrImg={thrImg} newImg={newImg} />
        <div>hi this is  </div>
        <Container className='container'>
         <Row>
@@ -83,11 +89,11 @@ function carouselnewImage(thirdImage) {
             <Product img={Faker.image.image()}product={Faker.company.companyName()} productdetails={Faker.company.catchPhrase()}/>
         </Row>
        </Container>
-       <Button />
-       <Update value={value} onChange={handleChange} car={carousels} carouselChange={carouselChange} carouselFImage={carouselFImage}
+       <Button showUpdate={showUpdate} value={show}/>
+       {show ? <Update value={value} onChange={handleChange} car={carousels} carouselChange={carouselChange} carouselFImage={carouselFImage}
        carouselSecImage={carouselSecImage} carouselthrImage={carouselthrImage} carouselnewImage={carouselnewImage}
        
-       />
+       />:''}
     </div>
   );
 }

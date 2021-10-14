@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Carousel } from  'react-bootstrap';
 //import faker from 'faker'
 import CarouselItem from './CarouselItem'
@@ -6,8 +6,8 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-const Carouselt = ({carousels,fImg,secImg,thrImg}) => {
-const items =[
+const Carouselt = ({carousels,fImg,secImg,thrImg,newImg}) => {
+let items=[
   {img:fImg,
    label: carousels.fLabel,
    labelDetails:carousels.fLabelDetails
@@ -21,18 +21,32 @@ const items =[
   img:thrImg,
    label: carousels.thrLabel,
    labelDetails:carousels.thrLabelDetails
-  }
+  },
 
 ]
 
-const renderedItems= items.map((item)=>{
+let newItem={
+  img:newImg,
+  label: carousels.newLabel,
+  labelDetails:  carousels.newLabelDetails
+}
+
+ 
+
+
+  items=( [...items, newItem]);
+
+
+
+ 
+const renderedItems= items.map((item,index)=>{
   return(
-  <CarouselItem img={item.img} label={item.label} labelDetails={item.labelDetails}/>
+  <CarouselItem key={index} img={item.img} label={item.label} labelDetails={item.labelDetails}/>
 )})
 
 return(
   <>
-   <OwlCarousel className='owl-theme' items='3' autoplay dots loop margin={10} nav>
+   <OwlCarousel className='owl-theme' items='1' autoplay dots loop margin={10} nav>
    {renderedItems}
    </OwlCarousel>
   

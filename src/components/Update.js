@@ -14,9 +14,10 @@ const Update =(props)=>{
     const[imageCarSelector,setImageCarSelector]= useState({
         fIm:'',
         secIm:'',
-        thrIm:''
+        thrIm:'',
+        newIm:''
     })
-    const { fIm, secIm,thrIm}=imageCarSelector
+    const { fIm, secIm,thrIm,newIm}=imageCarSelector
     
     
     
@@ -120,7 +121,7 @@ const Update =(props)=>{
     const uploadNewImageCar = ()=>{
         
         const formData = new FormData()
-        formData.append('file',fIm)
+        formData.append('file',newIm)
         formData.append('upload_preset','ozqur3ms')
         axios.post('https://api.cloudinary.com/v1_1/djrm6ygpv/image/upload',formData).then((res)=>{
             console.log(res)
@@ -146,14 +147,13 @@ const Update =(props)=>{
         if(imageUrl!==''){
         document.getElementById("pageIcon").setAttribute("href", imageUrl)
         document.getElementById("icon").setAttribute("src", imageUrl)  
-       
-
-       
-      
+             
         }
 
-
       }, [imageUrl])
+
+
+
       useEffect(() => {
       
         
@@ -161,10 +161,10 @@ const Update =(props)=>{
        
       }, [fIm])
       useEffect(() => {
-      
+        if(fImCar !== ''){
         props.carouselFImage(fImCar)
         
-       
+        }
       }, [fImCar])
 //sec 
       useEffect(() => {
@@ -174,16 +174,16 @@ const Update =(props)=>{
        
       }, [secIm])
       useEffect(() => {
-      
+        if(secImCar !== ''){
         props.carouselSecImage(secImCar)
         
-       
+        }
       }, [secImCar])
       useEffect(() => {
-      
+        if(thrImCar !== ''){
         props.carouselthrImage(thrImCar)
         
-       
+        }
       }, [thrImCar])
 
       //third
@@ -193,12 +193,26 @@ const Update =(props)=>{
         uploadThImageCar()
        
       }, [thrIm])
+
+      //new
+
       useEffect(() => {
       
-        props.carouselFImage(newImCar)
         
+        uploadNewImageCar()
+       
+      }, [newIm])
+
+
+      useEffect(() => {
+      if(newImCar !== ''){
+        props.carouselnewImage(newImCar)
+      }
        
       }, [newImCar])
+
+
+      
     
     const onSubmit= e=>{
         e.preventDefault()
@@ -331,17 +345,17 @@ const Update =(props)=>{
           <div className='inputDiv'>
           <label>New slide label</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text'  name='newLabel'onChange={e=>carouselChange(e)} />
           <br />
           </div>
           <div className='inputDiv'>
           <label>New slide label details</label>
           <br />
-          <input type='text' name='tile' />
+          <input type='text'  name='newLabelDetails'onChange={e=>carouselChange(e)}  />
          </div>
           <br />
-          <input type="file"  name='tile' />
-          <button name='thrImCar' onClick={(e)=>{uploadThImageCar(thrIm)}}>Upload photo</button>
+          <input type="file" onChange={e=>{setImageCarSelector( {...imageCarSelector,newIm:(e.target.files[0])});}} />
+          <button name='newImCar' onClick={uploadNewImageCar}>Upload photo</button>
           <br />
 
           </div>

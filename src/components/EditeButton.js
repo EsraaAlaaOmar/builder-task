@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Button=()=>{
+const Button=({showUpdate,value})=>{
     return(
         <>
         <div className='editeButton container'>
        
-         <button >
-            <Link target="_blank" to='update'>
+         <button onClick={(e)=>showUpdate(!value)}>
+         
                 Edite builder
-            </Link>    
+           
          </button> 
             
         </div>    
