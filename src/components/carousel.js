@@ -46,8 +46,9 @@ const renderedItems= items.map((item,index)=>{
 
 return(
   <>
-   <OwlCarousel className='owl-theme' items='1' autoplay dots loop margin={10} nav>
+   <OwlCarousel className='owl-theme' items='2' autoplay dots loop margin={5} nav>
    {renderedItems}
+   
    </OwlCarousel>
   
  {/*<Carousel className='carousel'>
